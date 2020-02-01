@@ -106,9 +106,14 @@ int Matrix_column(const Matrix* mat, const int* ptr) {
 // EFFECTS:  Returns a pointer to the element in the Matrix
 //           at the given row and column.
 int* Matrix_at(Matrix* mat, int row, int column) {
-  assert(false); // TODO Replace with your implementation!
+  assert(0 <= row);
+  assert(0 <= column); // TODO Replace with your implementation!
   Matrix m = *mat;
-  
+  //get index
+  int index = m.width * row + column;
+
+  //return the pointer
+  return &m.data[index];
 }
 
 // REQUIRES: mat points to a valid Matrix
