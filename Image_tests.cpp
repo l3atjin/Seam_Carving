@@ -45,6 +45,134 @@ TEST(test_print_basic) {
   delete img; // delete the Image
 }
 
+TEST(Image_get_pixel) {
+  Image *img = new Image; // create an Image in dynamic memory
+
+  const Pixel red = {255, 0, 0};
+  const Pixel green = {0, 255, 0};
+  const Pixel blue = {0, 0, 255};
+  const Pixel white = {255, 255, 255};
+
+  Image_init(img, 2, 2);
+  Image_set_pixel(img, 0, 0, red);
+  Image_set_pixel(img, 0, 1, green);
+  Image_set_pixel(img, 1, 0, blue);
+  Image_set_pixel(img, 1, 1, white);
+
+  ASSERT_EQUAL(Image_get_pixel(img, 0, 0).r, 255);
+  ASSERT_EQUAL(Image_get_pixel(img, 0, 1).g, 255);
+  ASSERT_EQUAL(Image_get_pixel(img, 1, 0).b, 255);
+  ASSERT_EQUAL(Image_get_pixel(img, 1, 1).r, 255);
+  delete img; // delete the Image
+}
+
+TEST(Image_width) {
+  Image *img = new Image; // create an Image in dynamic memory
+
+  const Pixel red = {255, 0, 0};
+
+  Image_init(img, 5, 10);
+  Image_fill(img, red);
+
+  ASSERT_EQUAL(Image_width(img), 5);
+  ASSERT_EQUAL(Image_height(img), 10);
+
+  delete img; // delete the Image
+}
+
+TEST(Image_height) {
+  Image *img = new Image; // create an Image in dynamic memory
+
+  const Pixel red = {255, 0, 0};
+
+  Image_init(img, 5, 10);
+  Image_fill(img, red);
+
+  ASSERT_EQUAL(Image_height(img), 10);
+
+  delete img; // delete the Image
+}
+
+TEST(Image_fill) {
+  Image *img = new Image; // create an Image in dynamic memory
+
+  const Pixel red = {255, 0, 0};
+
+  Image_init(img, 2, 2);
+  Image_fill(img, red);
+
+  // Capture our output
+  ostringstream s;
+  Image_print(img, s);
+
+  // Correct output
+  ostringstream correct;
+  correct << "P3\n2 2\n255\n";
+  correct << "255 0 0 255 0 0 \n";
+  correct << "255 0 0 255 0 0 \n";
+  ASSERT_EQUAL(s.str(), correct.str());
+
+  delete img; // delete the Image
+}
+
+TEST(Image_print) {
+  Image *img = new Image; // create an Image in dynamic memory
+
+  /*const Pixel red = {255, 0, 0};
+  const Pixel green = {0, 255, 0};
+  const Pixel blue = {0, 0, 255};*/
+  const Pixel white = {255, 255, 255};
+
+  Image_init(img, 2, 3);
+  Image_fill(img, white);
+
+  // Capture our output
+  ostringstream s;
+  Image_print(img, s);
+
+  // Correct output
+  ostringstream correct;
+  correct << "P3\n2 3\n255\n";
+  correct << "255 255 255 255 255 255 \n";
+  correct << "255 255 255 255 255 255 \n";
+  correct << "255 255 255 255 255 255 \n";
+  ASSERT_EQUAL(s.str(), correct.str());
+
+  delete img; // delete the Image
+}
+
+
+TEST(Image_set_pixel) {
+  Image *img = new Image; // create an Image in dynamic memory
+
+  const Pixel white = {255, 255, 255};
+  const Pixel pixel1 = {0, 0, 0};
+
+  Image_init(img, 3, 5);
+  Image_fill(img, white);
+
+  Image_set_pixel(img, 0, 0, pixel1);
+  Image_set_pixel(img, 0, 2, pixel1);
+  Image_set_pixel(img, 4, 0, pixel1);
+  Image_set_pixel(img, 4, 2, pixel1);
+  Image_set_pixel(img, 1, 1, pixel1);
+  // Capture our output
+  ostringstream s;
+  Image_print(img, s);
+
+  // Correct output
+  ostringstream correct;
+  correct << "P3\n3 5\n255\n";
+  correct << "0 0 0 255 255 255 0 0 0 \n";
+  correct << "255 255 255 0 0 0 255 255 255 \n";
+  correct << "255 255 255 255 255 255 255 255 255 \n";
+  correct << "255 255 255 255 255 255 255 255 255 \n";
+  correct << "0 0 0 255 255 255 0 0 0 \n";
+  ASSERT_EQUAL(s.str(), correct.str());
+
+  delete img; // delete the Image
+}
+
 // IMPLEMENT YOUR TEST FUNCTIONS HERE
 // You are encouraged to use any functions from Image_test_helpers.h as needed.
 
