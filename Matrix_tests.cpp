@@ -269,30 +269,171 @@ TEST(Matrix_fill_border) {
   delete mat2;
 }
 
-TEST(Matrix_column) {
-  Matrix *mat = new Matrix;
+TEST(Matrix_max) {
+    Matrix* mat1 = new Matrix;
+    Matrix* mat2 = new Matrix;
+    Matrix* mat3 = new Matrix;
+    Matrix* mat4 = new Matrix;
 
-  const int width = 5;
-  const int height = 5;
+    const int width = 2;
+    const int height = 2;
+
+    // test matrix 1
+    Matrix_init(mat1, width, height);
+    Matrix_fill(mat1, 0);
+    *Matrix_at(mat1, 0, 0) = -1;
+    *Matrix_at(mat1, 0, 1) = -2;
+    *Matrix_at(mat1, 1, 0) = -3;
+    *Matrix_at(mat1, 1, 1) = -4;
+
+    // test matrix 2
+    Matrix_init(mat2, width, height);
+    Matrix_fill(mat2, 0);
+    *Matrix_at(mat2, 0, 0) = -1;
+    *Matrix_at(mat2, 0, 1) = -2;
+    *Matrix_at(mat2, 1, 0) = 0;
+    *Matrix_at(mat2, 1, 1) = -4;
+
+    //test matrix 3
+    Matrix_init(mat3, width, height);
+    Matrix_fill(mat3, 0);
+    *Matrix_at(mat3, 0, 0) = -7;
+    *Matrix_at(mat3, 0, 1) = 0;
+    *Matrix_at(mat3, 1, 0) = 1;
+    *Matrix_at(mat3, 1, 1) = 8;
+
+    //test matrix 4
+    Matrix_init(mat4, width, height);
+    Matrix_fill(mat4, 0);
+    *Matrix_at(mat4, 0, 0) = 1;
+    *Matrix_at(mat4, 0, 1) = 1;
+    *Matrix_at(mat4, 1, 0) = 1;
+    *Matrix_at(mat4, 1, 1) = 1;
+
+    ASSERT_EQUAL(Matrix_max(mat1), -1);
+    ASSERT_EQUAL(Matrix_max(mat2), 0);
+    ASSERT_EQUAL(Matrix_max(mat3), 8);
+    ASSERT_EQUAL(Matrix_max(mat4), 1);
 
 
-  Matrix_init(mat, width, height);
-  Matrix_fill(mat, 0);
-  *Matrix_at(mat, 0, 0) = 5;
-  *Matrix_at(mat, 0, 4) = 6;
-  *Matrix_at(mat, 4, 0) = 7;
-  *Matrix_at(mat, 4, 4) = 8;
-  *Matrix_at(mat, 2, 2) = 9;
-  *Matrix_at(mat, 3, Matrix_height(mat) - 1) = 10;
+    delete mat1;
+    delete mat2;
+    delete mat3;
+    delete mat4;
+}
 
-  ASSERT_EQUAL(Matrix_column(mat, Matrix_at(mat, 0, 0)), 0);
-  ASSERT_EQUAL(Matrix_column(mat, Matrix_at(mat, 0, 4)), 4);
-  ASSERT_EQUAL(Matrix_column(mat, Matrix_at(mat, 4, 0)), 0);
-  ASSERT_EQUAL(Matrix_column(mat, Matrix_at(mat, 4, 4)), 4);
-  ASSERT_EQUAL(Matrix_column(mat, Matrix_at(mat, 2, 2)), 2);
-  ASSERT_EQUAL(Matrix_column(mat, Matrix_at(mat, 3, Matrix_height(mat) - 1)), Matrix_height(mat) - 1);
-  
-  delete mat;
+TEST(Matrix_column_of_min_value_in_row) {
+    Matrix* mat1 = new Matrix;
+    Matrix* mat2 = new Matrix;
+    Matrix* mat3 = new Matrix;
+
+    const int width = 3;
+    const int height = 3;
+    const int width2 = 1;
+    const int height2 = 4;
+    const int width3 = 4;
+    const int height3 = 1;
+
+    // test matrix 1
+    Matrix_init(mat1, width, height);
+    Matrix_fill(mat1, 0);
+    *Matrix_at(mat1, 0, 0) = -1;
+    *Matrix_at(mat1, 0, 1) = -2;
+    *Matrix_at(mat1, 0, 2) = -3;
+    *Matrix_at(mat1, 1, 0) = 0;
+    *Matrix_at(mat1, 1, 1) = 0;
+    *Matrix_at(mat1, 1, 2) = -1;
+    *Matrix_at(mat1, 2, 0) = 1;
+    *Matrix_at(mat1, 2, 1) = 2;
+    *Matrix_at(mat1, 2, 2) = -10;
+
+    // test matrix 2
+    Matrix_init(mat2, width2, height2);
+    Matrix_fill(mat2, 0);
+    *Matrix_at(mat2, 0, 0) = 1;
+    *Matrix_at(mat2, 1, 0) = -2;
+    *Matrix_at(mat2, 2, 0) = 0;
+    *Matrix_at(mat2, 3, 0) = 4;
+
+    //test matrix 3
+    Matrix_init(mat3, width3, height3);
+    Matrix_fill(mat3, 0);
+    *Matrix_at(mat3, 0, 0) = 4;
+    *Matrix_at(mat3, 0, 1) = 3;
+    *Matrix_at(mat3, 0, 2) = 3;
+    *Matrix_at(mat3, 0, 3) = 2;
+
+
+    ASSERT_EQUAL(Matrix_column_of_min_value_in_row(mat1, 0, 0, 2), 2);
+    ASSERT_EQUAL(Matrix_column_of_min_value_in_row(mat1, 2, 0, 2), 0);
+    ASSERT_EQUAL(Matrix_column_of_min_value_in_row(mat1, 1, 0, 2), 0);
+    ASSERT_EQUAL(Matrix_column_of_min_value_in_row(mat2, 0, 0, 0), 0);
+    ASSERT_EQUAL(Matrix_column_of_min_value_in_row(mat2, 1, 0, 0), 0);
+    ASSERT_EQUAL(Matrix_column_of_min_value_in_row(mat3, 0, 0, 2), 1);
+    ASSERT_EQUAL(Matrix_column_of_min_value_in_row(mat3, 0, 0, 3), 1);
+
+    delete mat1;
+    delete mat2;
+    delete mat3;
+}
+
+TEST(Matrix_column_of_min_value_in_row) {
+    Matrix* mat1 = new Matrix;
+    Matrix* mat2 = new Matrix;
+    Matrix* mat3 = new Matrix;
+    
+    const int width = 3;
+    const int height = 3;
+    const int width2 = 1;
+    const int height2 = 4;
+    const int width3 = 4;
+    const int height3 = 1;
+
+    // test matrix 1
+    Matrix_init(mat1, width, height);
+    Matrix_fill(mat1, 0);
+    *Matrix_at(mat1, 0, 0) = 7;
+    *Matrix_at(mat1, 0, 1) = 8;
+    *Matrix_at(mat1, 0, 2) = 9;
+    *Matrix_at(mat1, 1, 0) = 9;
+    *Matrix_at(mat1, 1, 1) = 0;
+    *Matrix_at(mat1, 1, 2) = 7;
+    *Matrix_at(mat1, 2, 0) = -1;
+    *Matrix_at(mat1, 2, 1) = -2;
+    *Matrix_at(mat1, 2, 2) = -10;
+
+    // test matrix 2
+    Matrix_init(mat2, width2, height2);
+    Matrix_fill(mat2, 0);
+    *Matrix_at(mat2, 0, 0) = 1;
+    *Matrix_at(mat2, 1, 0) = -2;
+    *Matrix_at(mat2, 2, 0) = 0;
+    *Matrix_at(mat2, 3, 0) = 4;
+
+    //test matrix 3
+    Matrix_init(mat3, width3, height3);
+    Matrix_fill(mat3, 0);
+    *Matrix_at(mat3, 0, 0) = 4;
+    *Matrix_at(mat3, 0, 1) = 3;
+    *Matrix_at(mat3, 0, 2) = 3;
+    *Matrix_at(mat3, 0, 3) = 2;
+
+
+    ASSERT_EQUAL(Matrix_min_value_in_row(mat1, 0, 0, 2), 7);
+    ASSERT_EQUAL(Matrix_min_value_in_row(mat1, 2, 0, 2), -10);
+    ASSERT_EQUAL(Matrix_min_value_in_row(mat1, 1, 0, 2), 0);
+    ASSERT_EQUAL(Matrix_min_value_in_row(mat2, 0, 0, 0), 1);
+    ASSERT_EQUAL(Matrix_min_value_in_row(mat2, 1, 0, 0), -2); 
+    ASSERT_EQUAL(Matrix_min_value_in_row(mat3, 0, 0, 2), 3);
+    ASSERT_EQUAL(Matrix_min_value_in_row(mat3, 0, 0, 3), 2);
+
+
+
+
+    delete mat1;
+    delete mat2;
+    delete mat3;
+}
 
 
 
