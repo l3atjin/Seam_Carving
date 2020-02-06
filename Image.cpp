@@ -27,7 +27,7 @@ void Image_init(Image* img, int width, int height) {
 // NOTE:     See the project spec for a discussion of PPM format.
 // NOTE:     Do NOT use new or delete here.
 void Image_init(Image* img, std::istream& is) {
-  //header
+   //header
   char a;
   int width, height, maxVal, tempR, tempG, tempB;
 
@@ -69,12 +69,12 @@ void Image_print(const Image* img, std::ostream& os) {
   Pixel temp;
 
   os << "P3" << std::endl;
-  os << img->width << " " << img->height << std::endl;
+  os << Image_width(img) << " " << Image_height(img) << std::endl;
   os << "255" << std::endl;
 
 
-  for (int row = 0; row < img->height; row++) {
-    for (int col = 0; col < img->width; col++) {
+  for (int row = 0; row < Image_height(img); row++) {
+    for (int col = 0; col < Image_width(img); col++) {
       temp = Image_get_pixel(img, row, col);
       os << temp.r << " ";
       os << temp.g << " ";
@@ -130,8 +130,8 @@ void Image_set_pixel(Image* img, int row, int column, Pixel color) {
 // MODIFIES: *img
 // EFFECTS:  Sets each pixel in the image to the given color.
 void Image_fill(Image* img, Pixel color) {
-  for (int row = 0; row < img->height; row++) {
-    for (int col = 0; col < img->width; col++) {
+  for (int row = 0; row < Image_height(img); row++) {
+    for (int col = 0; col < Image_width(img); col++) {
       Image_set_pixel(img, row, col, color);
     }
   }

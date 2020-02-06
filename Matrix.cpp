@@ -14,8 +14,8 @@
 // EFFECTS:  Initializes *mat as a Matrix with the given width and height.
 // NOTE:     Do NOT use new or delete here.
 void Matrix_init(Matrix* mat, int width, int height) {
-  assert(0 < width);
-  assert(0 < height);
+  assert(0 < width && width <= MAX_MATRIX_WIDTH);
+  assert(0 < height && height <= MAX_MATRIX_HEIGHT);
   // Make a temporary matrix
   mat->width = width;
   mat->height = height;
@@ -64,7 +64,7 @@ int Matrix_height(const Matrix* mat) {
 int Matrix_row(const Matrix* mat, const int* ptr) {
   const int* first_ptr = &mat->data[0];
   int index = ptr - first_ptr;
-  int width = mat->width;
+  int width = Matrix_width(mat);
   return index/width;
 }
 
@@ -74,7 +74,7 @@ int Matrix_row(const Matrix* mat, const int* ptr) {
 int Matrix_column(const Matrix* mat, const int* ptr) {
   const int* first_ptr = &mat->data[0];
   int index = ptr - first_ptr;
-  if(index < mat->width)
+  if(index < Matrix_width(mat))
   {
     return index;
   }
@@ -90,11 +90,11 @@ int Matrix_column(const Matrix* mat, const int* ptr) {
 // EFFECTS:  Returns a pointer to the element in the Matrix
 //           at the given row and column.
 int* Matrix_at(Matrix* mat, int row, int column) {
-  assert(0 <= row);
-  assert(0 <= column); // TODO Replace with your implementation!
+  assert(0 <= row && row < Matrix_height(mat));
+  assert(0 <= column && column < Matrix_width(mat)); 
 
   //get index
-  int index = mat->width * row + column;
+  int index = Matrix_width(mat) * row + column;
 
   //return the pointer
   return &mat->data[index];
@@ -111,7 +111,7 @@ const int* Matrix_at(const Matrix* mat, int row, int column) {
   assert(0 <= column); // TODO Replace with your implementation!
 
   //get index
-  int index = mat->width * row + column;
+  int index = Matrix_width(mat) * row + column;
 
   //return the pointer
   return &mat->data[index];
@@ -122,9 +122,9 @@ const int* Matrix_at(const Matrix* mat, int row, int column) {
 // EFFECTS:  Sets each element of the Matrix to the given value.
 void Matrix_fill(Matrix* mat, int value) {
   // TODO Replace with your implementation!
-  for (int row = 0; row < mat->height; row++)
+  for (int row = 0; row < Matrix_height(mat); row++)
   {
-    for (int col = 0; col < mat->width; col++)
+    for (int col = 0; col < Matrix_width(mat); col++)
     {
       *Matrix_at(mat, row, col) = value;
     }
@@ -137,15 +137,15 @@ void Matrix_fill(Matrix* mat, int value) {
 //           the given value. These are all elements in the first/last
 //           row or the first/last column.
 void Matrix_fill_border(Matrix* mat, int value) {
-  for (int col = 0; col < mat->width; col++)
+  for (int col = 0; col < Matrix_width(mat); col++)
   {
     *Matrix_at(mat, 0, col) = value;
-    *Matrix_at(mat, mat->height - 1, col) = value;
+    *Matrix_at(mat, Matrix_height(mat) - 1, col) = value;
   }
-  for (int row = 0; row < mat->height; row++)
+  for (int row = 0; row < Matrix_height(mat); row++)
   {
     *Matrix_at(mat, row, 0) = value;
-    *Matrix_at(mat, row, mat->width - 1) = value;
+    *Matrix_at(mat, row, Matrix_width(mat) - 1) = value;
   }
   
 }
@@ -155,9 +155,9 @@ void Matrix_fill_border(Matrix* mat, int value) {
 int Matrix_max(const Matrix* mat) {
   int maxNum = *Matrix_at(mat, 0, 0);
 
-  for (int row = 0; row < mat->height; row++)
+  for (int row = 0; row < Matrix_height(mat); row++)
   {
-    for (int col = 0; col < mat->width; col++)
+    for (int col = 0; col < Matrix_width(mat); col++)
     {
       if(*Matrix_at(mat, row, col) > maxNum)
       {

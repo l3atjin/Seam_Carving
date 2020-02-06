@@ -46,12 +46,12 @@ TEST(Matrix_init) {
   Matrix_init(mat1, width1, height1);
   Matrix_init(mat2, width2, height2);
 
-  ASSERT_EQUAL(mat->height, height);
-  ASSERT_EQUAL(mat->width, width);
-  ASSERT_EQUAL(mat1->height, height1);
-  ASSERT_EQUAL(mat1->width, width1);
-  ASSERT_EQUAL(mat2->height, height2);
-  ASSERT_EQUAL(mat2->width, width2);
+  ASSERT_EQUAL(Matrix_height(mat), height);
+  ASSERT_EQUAL(Matrix_width(mat), width);
+  ASSERT_EQUAL(Matrix_height(mat1), height1);
+  ASSERT_EQUAL(Matrix_width(mat1), width1);
+  ASSERT_EQUAL(Matrix_height(mat2), height2);
+  ASSERT_EQUAL(Matrix_width(mat2), width2);
 
   delete mat;
   delete mat2;
@@ -362,14 +362,14 @@ TEST(Matrix_column_of_min_value_in_row) {
 
     ASSERT_EQUAL(Matrix_column_of_min_value_in_row(mat1, 0, 0, 2), 1);
     ASSERT_EQUAL(Matrix_column_of_min_value_in_row(mat1, 2, 0, 2), 0);
-    ASSERT_EQUAL(Matrix_column_of_min_value_in_row(mat1, 2, 0, mat1->width), 2);
+    ASSERT_EQUAL(Matrix_column_of_min_value_in_row(mat1, 2, 0, Matrix_width(mat1)), 2);
     ASSERT_EQUAL(Matrix_column_of_min_value_in_row(mat1, 1, 0, 2), 0);
-    ASSERT_EQUAL(Matrix_column_of_min_value_in_row(mat1, 1, 0, mat1->width), 2);
+    ASSERT_EQUAL(Matrix_column_of_min_value_in_row(mat1, 1, 0, Matrix_width(mat1)), 2);
     ASSERT_EQUAL(Matrix_column_of_min_value_in_row(mat2, 0, 0, 0), 0);
     ASSERT_EQUAL(Matrix_column_of_min_value_in_row(mat2, 1, 0, 0), 0);
     ASSERT_EQUAL(Matrix_column_of_min_value_in_row(mat3, 0, 0, 2), 1);
     ASSERT_EQUAL(Matrix_column_of_min_value_in_row(mat3, 0, 0, 3), 1);
-    ASSERT_EQUAL(Matrix_column_of_min_value_in_row(mat3, 0, 0, mat3->width), 3);
+    ASSERT_EQUAL(Matrix_column_of_min_value_in_row(mat3, 0, 0, Matrix_width(mat3)), 3);
 
     delete mat1;
     delete mat2;
@@ -420,14 +420,14 @@ TEST(Matrix_min_value_in_row) {
 
     ASSERT_EQUAL(Matrix_min_value_in_row(mat1, 0, 0, 2), 7);
     ASSERT_EQUAL(Matrix_min_value_in_row(mat1, 2, 0, 2), -2);
-    ASSERT_EQUAL(Matrix_min_value_in_row(mat1, 2, 0, mat1->width), -10);
+    ASSERT_EQUAL(Matrix_min_value_in_row(mat1, 2, 0, Matrix_width(mat1)), -10);
     ASSERT_EQUAL(Matrix_min_value_in_row(mat1, 1, 0, 2), 0);
     //not sure about this case
     ASSERT_EQUAL(Matrix_min_value_in_row(mat2, 0, 0, 0), 1);
     ASSERT_EQUAL(Matrix_min_value_in_row(mat2, 1, 0, 0), -2); 
     ASSERT_EQUAL(Matrix_min_value_in_row(mat3, 0, 0, 2), 3);
     ASSERT_EQUAL(Matrix_min_value_in_row(mat3, 0, 0, 3), 3);
-    ASSERT_EQUAL(Matrix_min_value_in_row(mat3, 0, 0, mat3->width), 2);
+    ASSERT_EQUAL(Matrix_min_value_in_row(mat3, 0, 0, Matrix_width(mat3)), 2);
 
 
 
