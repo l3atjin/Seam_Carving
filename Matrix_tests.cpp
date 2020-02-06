@@ -322,7 +322,7 @@ TEST(Matrix_max) {
     delete mat4;
 }
 
-TEST(Matrix_column_of_min_value_in_row) {
+/*TEST(Matrix_column_of_min_value_in_row) {
     Matrix* mat1 = new Matrix;
     Matrix* mat2 = new Matrix;
     Matrix* mat3 = new Matrix;
@@ -375,9 +375,9 @@ TEST(Matrix_column_of_min_value_in_row) {
     delete mat1;
     delete mat2;
     delete mat3;
-}
+}*/
 
-TEST(Matrix_column_of_min_value_in_row) {
+/*TEST(Matrix_column_of_min_value_in_row) {
     Matrix* mat1 = new Matrix;
     Matrix* mat2 = new Matrix;
     Matrix* mat3 = new Matrix;
@@ -433,7 +433,7 @@ TEST(Matrix_column_of_min_value_in_row) {
     delete mat1;
     delete mat2;
     delete mat3;
-}
+}*/
 
 
 
