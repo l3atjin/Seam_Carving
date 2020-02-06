@@ -32,7 +32,7 @@ void Matrix_init(Matrix* mat, int width, int height) {
 //           the end of each line.
 void Matrix_print(const Matrix* mat, std::ostream& os) {
   // Figure out endl
-  os << mat->width << " " << mat->height << std::endl;
+  os <<  mat->width << " " << mat->height << std::endl;
    // TODO Replace with your implementation!
   for (int row = 0; row < mat->height; row++)
   {
@@ -183,6 +183,7 @@ int Matrix_column_of_min_value_in_row(const Matrix* mat, int row,
 {
   int currentMin = *Matrix_at(mat, row, column_start);
   int currentCol = column_start;
+
   for (int col = column_start; col < column_end; col++)
   {
     if(*Matrix_at(mat, row, col) < currentMin)

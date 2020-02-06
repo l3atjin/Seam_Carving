@@ -63,12 +63,12 @@ TEST(Matrix_print) {
   Matrix_init(mat, 5, 5);
   Matrix_fill(mat, 10);
   ostringstream expected;
-  expected << "5 5" << std::endl 
-           << "10 10 10 10 10" << std::endl
-           << "10 10 10 10 10" << std::endl
-           << "10 10 10 10 10" << std::endl
-           << "10 10 10 10 10" << std::endl
-           << "10 10 10 10 10" << std::endl;
+  expected << "5 5" << std::endl
+      << "10 10 10 10 10 " << std::endl
+      << "10 10 10 10 10 " << std::endl
+      << "10 10 10 10 10 " << std::endl
+      << "10 10 10 10 10 " << std::endl
+      << "10 10 10 10 10 " << std::endl;
   ostringstream actual;
   Matrix_print(mat, actual);
   ASSERT_EQUAL(expected.str(), actual.str());
@@ -142,11 +142,11 @@ TEST(Matrix_at) {
 
   ostringstream expected;
   expected << "5 5" << std::endl 
-           << "5 0 0 0 6" << std::endl
-           << "0 0 0 0 0" << std::endl
-           << "0 0 9 0 0" << std::endl
-           << "0 0 0 0 10" << std::endl
-           << "7 0 0 0 8" << std::endl;
+           << "5 0 0 0 6 " << std::endl
+           << "0 0 0 0 0 " << std::endl
+           << "0 0 9 0 0 " << std::endl
+           << "0 0 0 0 10 " << std::endl
+           << "7 0 0 0 8 " << std::endl;
   ostringstream actual;
   Matrix_print(mat, actual);
   ASSERT_EQUAL(expected.str(), actual.str());
@@ -231,35 +231,31 @@ TEST(Matrix_fill_border) {
   Matrix_fill_border(mat1, 1);
   Matrix_fill_border(mat2, 1);
 
-  /*ostringstream expected1;
+  ostringstream expected1;
   expected1 << "5 5" << std::endl 
-           << "1 1 1 1 1" << std::endl
-           << "1 10 10 10 10" << std::endl
-           << "1 10 10 10 10" << std::endl
-           << "1 10 10 10 10" << std::endl
-           << "1 1 1 1 1" << std::endl;
+           << "1 1 1 1 1 " << std::endl
+           << "1 0 0 0 1 " << std::endl
+           << "1 0 0 0 1 " << std::endl
+           << "1 0 0 0 1 " << std::endl
+           << "1 1 1 1 1 " << std::endl;
   ostringstream actual1;
   Matrix_print(mat, actual1);
-  ASSERT_EQUAL(expected1.str(), actual1.str());*/
+  ASSERT_EQUAL(expected1.str(), actual1.str());
 
-  /*ostringstream expected2;
-  expected2 << "5 5" << std::endl 
-           << "10 10 10 10 10" << std::endl
-           << "10 10 10 10 10" << std::endl
-           << "10 10 10 10 10" << std::endl
-           << "10 10 10 10 10" << std::endl
-           << "10 10 10 10 10" << std::endl;
+  ostringstream expected2;
+  expected2 << "1 1" << std::endl
+      << "1 " << std::endl;
   ostringstream actual2;
   Matrix_print(mat1, actual2);
-  ASSERT_EQUAL(expected2.str(), actual2.str());*/
+  ASSERT_EQUAL(expected2.str(), actual2.str());
 
   ostringstream expected3;
-  expected3 << "5 5" << std::endl 
-           << "10 10 10 10 10" << std::endl
-           << "10 10 10 10 10" << std::endl
-           << "10 10 10 10 10" << std::endl
-           << "10 10 10 10 10" << std::endl
-           << "10 10 10 10 10" << std::endl;
+  expected3 << "3 5" << std::endl 
+           << "1 1 1 " << std::endl
+           << "1 0 1 " << std::endl
+           << "1 0 1 " << std::endl
+           << "1 0 1 " << std::endl
+           << "1 1 1 " << std::endl;
   ostringstream actual3;
   Matrix_print(mat2, actual3);
   ASSERT_EQUAL(expected3.str(), actual3.str());
@@ -322,7 +318,7 @@ TEST(Matrix_max) {
     delete mat4;
 }
 
-/*TEST(Matrix_column_of_min_value_in_row) {
+TEST(Matrix_column_of_min_value_in_row) {
     Matrix* mat1 = new Matrix;
     Matrix* mat2 = new Matrix;
     Matrix* mat3 = new Matrix;
@@ -364,20 +360,23 @@ TEST(Matrix_max) {
     *Matrix_at(mat3, 0, 3) = 2;
 
 
-    ASSERT_EQUAL(Matrix_column_of_min_value_in_row(mat1, 0, 0, 2), 2);
+    ASSERT_EQUAL(Matrix_column_of_min_value_in_row(mat1, 0, 0, 2), 1);
     ASSERT_EQUAL(Matrix_column_of_min_value_in_row(mat1, 2, 0, 2), 0);
+    ASSERT_EQUAL(Matrix_column_of_min_value_in_row(mat1, 2, 0, mat1->width), 2);
     ASSERT_EQUAL(Matrix_column_of_min_value_in_row(mat1, 1, 0, 2), 0);
+    ASSERT_EQUAL(Matrix_column_of_min_value_in_row(mat1, 1, 0, mat1->width), 2);
     ASSERT_EQUAL(Matrix_column_of_min_value_in_row(mat2, 0, 0, 0), 0);
     ASSERT_EQUAL(Matrix_column_of_min_value_in_row(mat2, 1, 0, 0), 0);
     ASSERT_EQUAL(Matrix_column_of_min_value_in_row(mat3, 0, 0, 2), 1);
     ASSERT_EQUAL(Matrix_column_of_min_value_in_row(mat3, 0, 0, 3), 1);
+    ASSERT_EQUAL(Matrix_column_of_min_value_in_row(mat3, 0, 0, mat3->width), 3);
 
     delete mat1;
     delete mat2;
     delete mat3;
-}*/
+}
 
-/*TEST(Matrix_column_of_min_value_in_row) {
+TEST(Matrix_min_value_in_row) {
     Matrix* mat1 = new Matrix;
     Matrix* mat2 = new Matrix;
     Matrix* mat3 = new Matrix;
@@ -420,12 +419,15 @@ TEST(Matrix_max) {
 
 
     ASSERT_EQUAL(Matrix_min_value_in_row(mat1, 0, 0, 2), 7);
-    ASSERT_EQUAL(Matrix_min_value_in_row(mat1, 2, 0, 2), -10);
+    ASSERT_EQUAL(Matrix_min_value_in_row(mat1, 2, 0, 2), -2);
+    ASSERT_EQUAL(Matrix_min_value_in_row(mat1, 2, 0, mat1->width), -10);
     ASSERT_EQUAL(Matrix_min_value_in_row(mat1, 1, 0, 2), 0);
+    //not sure about this case
     ASSERT_EQUAL(Matrix_min_value_in_row(mat2, 0, 0, 0), 1);
     ASSERT_EQUAL(Matrix_min_value_in_row(mat2, 1, 0, 0), -2); 
     ASSERT_EQUAL(Matrix_min_value_in_row(mat3, 0, 0, 2), 3);
-    ASSERT_EQUAL(Matrix_min_value_in_row(mat3, 0, 0, 3), 2);
+    ASSERT_EQUAL(Matrix_min_value_in_row(mat3, 0, 0, 3), 3);
+    ASSERT_EQUAL(Matrix_min_value_in_row(mat3, 0, 0, mat3->width), 2);
 
 
 
@@ -433,7 +435,7 @@ TEST(Matrix_max) {
     delete mat1;
     delete mat2;
     delete mat3;
-}*/
+}
 
 
 

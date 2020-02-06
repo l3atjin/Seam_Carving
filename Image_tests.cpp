@@ -45,6 +45,32 @@ TEST(test_print_basic) {
   delete img; // delete the Image
 }
 
+TEST(Image_init) {
+    Image* img = new Image;
+    Image* img1 = new Image;
+    //Image* img2 = new Image;
+    //string filename = "horses.ppm";
+    //stringstream is;
+
+    
+    int width = MAX_MATRIX_WIDTH;
+    int height = MAX_MATRIX_HEIGHT;
+    int width1 = 1;
+    int height1 = 1;
+
+    Image_init(img, width, height);
+    Image_init(img1, width1, height1);
+    ASSERT_EQUAL(Image_height(img), height);
+    ASSERT_EQUAL(Image_width(img), width);
+    ASSERT_EQUAL(Image_height(img1), height1);
+    ASSERT_EQUAL(Image_width(img1), width1);
+    
+    //Image_init(img2, filename)
+   
+
+
+}
+
 TEST(Image_get_pixel) {
   Image *img = new Image; // create an Image in dynamic memory
 
