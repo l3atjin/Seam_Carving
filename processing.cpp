@@ -216,9 +216,9 @@ void remove_vertical_seam(Image *img, const int seam[]) {
       Image_set_pixel(imgS, row, colS, Image_get_pixel(img, row, col));
       colS++;
     }
+    colS = 0;
   }
-  (*img) = (*imgS);
-
+  (*img) = (*imgS); 
   delete imgS;
 }
 
