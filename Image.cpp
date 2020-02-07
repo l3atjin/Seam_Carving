@@ -39,8 +39,8 @@ void Image_init(Image* img, std::istream& is) {
   Image_init(img, width, height);
   is >> maxVal;
 
-  for (int row = 0; row < width; row++) {
-    for (int col = 0; col < height; col++) {
+  for (int row = 0; row < height; row++) {
+    for (int col = 0; col < width; col++) {
       is >> tempR;
       *Matrix_at(&img ->red_channel, row, col) = tempR;
       is >> tempG;

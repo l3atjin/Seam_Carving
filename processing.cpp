@@ -231,8 +231,8 @@ void remove_vertical_seam(Image *img, const int seam[]) {
 // NOTE:     Use the new operator here to create Matrix objects, and
 //           then use delete when you are done with them.
 void seam_carve_width(Image *img, int newWidth) {
-  int width = Image_width(img);
-  while(width != newWidth)
+  //int width = Image_width(img);
+  while(Image_width(img) != newWidth)
   {
     Matrix *energy = new Matrix;
     compute_energy_matrix(img, energy);

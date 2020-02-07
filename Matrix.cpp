@@ -14,8 +14,8 @@
 // EFFECTS:  Initializes *mat as a Matrix with the given width and height.
 // NOTE:     Do NOT use new or delete here.
 void Matrix_init(Matrix* mat, int width, int height) {
-  //assert(0 < width && width <= MAX_MATRIX_WIDTH);
-  //assert(0 < height && height <= MAX_MATRIX_HEIGHT);
+  assert(0 < width && width <= MAX_MATRIX_WIDTH);
+  assert(0 < height && height <= MAX_MATRIX_HEIGHT);
   // Make a temporary matrix
   mat->width = width;
   mat->height = height;
@@ -90,8 +90,8 @@ int Matrix_column(const Matrix* mat, const int* ptr) {
 // EFFECTS:  Returns a pointer to the element in the Matrix
 //           at the given row and column.
 int* Matrix_at(Matrix* mat, int row, int column) {
-  //assert(0 <= row && row < Matrix_height(mat));
-  //assert(0 <= column && column < Matrix_width(mat)); 
+  assert(0 <= row && row < Matrix_height(mat));
+  assert(0 <= column && column < Matrix_width(mat)); 
 
   //get index
   int index = Matrix_width(mat) * row + column;
@@ -107,8 +107,8 @@ int* Matrix_at(Matrix* mat, int row, int column) {
 // EFFECTS:  Returns a pointer-to-const to the element in
 //           the Matrix at the given row and column.
 const int* Matrix_at(const Matrix* mat, int row, int column) {
-  //assert(0 <= row);
-  //assert(0 <= column); // TODO Replace with your implementation!
+  assert(0 <= row);
+  assert(0 <= column); // TODO Replace with your implementation!
 
   //get index
   int index = Matrix_width(mat) * row + column;
