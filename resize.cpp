@@ -1,4 +1,4 @@
-#include "image.h"
+#include "Image.h"
 #include "Matrix.h"
 #include "processing.h"
 #include <cassert>
