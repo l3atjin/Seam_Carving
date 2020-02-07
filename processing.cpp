@@ -99,8 +99,10 @@ void compute_energy_matrix(const Image* img, Matrix* energy) {
   {
     for (int col = 1; col < width - 1; col++)
     {
-      vertical = squared_difference(Image_get_pixel(img, row + 1, col), Image_get_pixel(img, row - 1, col));
-      horizontal = squared_difference(Image_get_pixel(img, row, col + 1), Image_get_pixel(img, row, col - 1));
+      vertical = squared_difference(Image_get_pixel(img, row + 1, col), 
+          Image_get_pixel(img, row - 1, col));
+      horizontal = squared_difference(Image_get_pixel(img, row, col + 1),
+          Image_get_pixel(img, row, col - 1));
       *Matrix_at(energy, row, col) = vertical + horizontal;
     }
   }
@@ -133,15 +135,18 @@ void compute_vertical_cost_matrix(const Matrix* energy, Matrix *cost) {
     {
       if(col == 0)
       {
-        *Matrix_at(cost, row, col) = *Matrix_at(energy, row,col) + Matrix_min_value_in_row(cost, row - 1, col, col + 2);
+        *Matrix_at(cost, row, col) = *Matrix_at(energy, row,col) +
+            Matrix_min_value_in_row(cost, row - 1, col, col + 2);
       }
       else if(col == width - 1)
       {
-        *Matrix_at(cost, row, col) = *Matrix_at(energy, row,col) + Matrix_min_value_in_row(cost, row - 1, col - 1, col + 1);
+        *Matrix_at(cost, row, col) = *Matrix_at(energy, row,col) + 
+            Matrix_min_value_in_row(cost, row - 1, col - 1, col + 1);
       }
       else
       {
-        *Matrix_at(cost, row, col) = *Matrix_at(energy, row,col) + Matrix_min_value_in_row(cost, row - 1, col - 1, col + 2);
+        *Matrix_at(cost, row, col) = *Matrix_at(energy, row,col) +
+            Matrix_min_value_in_row(cost, row - 1, col - 1, col + 2);
       }
     }
   }
