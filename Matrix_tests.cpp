@@ -201,7 +201,8 @@ TEST(Matrix_column) {
   ASSERT_EQUAL(Matrix_column(mat, Matrix_at(mat, 4, 0)), 0);
   ASSERT_EQUAL(Matrix_column(mat, Matrix_at(mat, 4, 4)), 4);
   ASSERT_EQUAL(Matrix_column(mat, Matrix_at(mat, 2, 2)), 2);
-  ASSERT_EQUAL(Matrix_column(mat, Matrix_at(mat, 3, Matrix_height(mat) - 1)), Matrix_height(mat) - 1);
+  ASSERT_EQUAL(Matrix_column(mat, Matrix_at(mat, 3, Matrix_height(mat) - 1)), 
+      Matrix_height(mat) - 1);
   
   delete mat;
 }
