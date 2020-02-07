@@ -7,6 +7,7 @@
 #include <string>
 #include <sstream>
 #include <cassert>
+#include <fstream>
 
 using namespace std;
 
@@ -48,9 +49,11 @@ TEST(test_print_basic) {
 TEST(Image_init) {
     Image* img = new Image;
     Image* img1 = new Image;
-    //Image* img2 = new Image;
-    //string filename = "horses.ppm";
-    //stringstream is;
+    Image* img2 = new Image;
+    string filename = "horses.ppm";
+    ifstream is;
+    is.open(filename);
+
 
     
     int width = MAX_MATRIX_WIDTH;
@@ -65,9 +68,9 @@ TEST(Image_init) {
     ASSERT_EQUAL(Image_height(img1), height1);
     ASSERT_EQUAL(Image_width(img1), width1);
     
-    //Image_init(img2, filename)
-   
-
+    Image_init(img2, is);
+    ASSERT_EQUAL(Image_height(img2), 382);
+    ASSERT_EQUAL(Image_width(img2), 479);
 
 }
 
