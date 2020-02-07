@@ -72,6 +72,9 @@ TEST(Image_init) {
     ASSERT_EQUAL(Image_height(img2), 382);
     ASSERT_EQUAL(Image_width(img2), 479);
 
+    delete img;
+    delete img1;
+    delete img2;
 }
 
 TEST(Image_get_pixel) {
