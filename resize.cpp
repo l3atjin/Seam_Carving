@@ -54,4 +54,5 @@ int main(int argc, char *argv[])
     ofstream output(arg2);
     
     Image_print(img, output);
+    delete img;
 }
